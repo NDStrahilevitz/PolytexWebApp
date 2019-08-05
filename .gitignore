@@ -1,0 +1,7 @@
+emptyappex.csproj
+.vscode
+Properties/
+bin/
+obj/
+appsettings.*
+

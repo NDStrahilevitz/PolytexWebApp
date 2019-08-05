@@ -1,0 +1,76 @@
+@page 
+@using PolytexWebApp.Models;
+@model ReportsModel
+
+@{
+    ViewData["Title"] = "All Purchase Orders";
+}
+<div>
+    <form method="get">
+        <p>Company Name: <input type="text" asp-for="companySearch"/></p>
+        <p>Status: <input type="text" asp-for="statusSearch"/></p>
+        <p><input type="submit" value="Filter"/></p>
+    </form>
+</div>
+<div>
+    <table>
+        <caption>Purchae Orders</caption>
+        <thead>
+            <tr>
+                <th>PO Number</th>
+                <th>Company PO Reference</th>
+                <th>Company Name</th>
+                <th>Contact Name</th>
+                <th>Contact Email</th>
+                <th>Contact Phone</th>
+                <th>Order Date</th>
+                <th>Delivery Date</th>
+                <th>Order Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.orders){
+                <tr>
+                    <td>
+                        @if(item.orderStatus != PurchaseOrder.Status.Draft)
+                        {
+                            <a asp-page="/OrderForm/View" asp-route-id="@item.poNumber">
+                                @Html.DisplayFor(modelItem => item.poNumber) 
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-page="/OrderForm/Edit" asp-route-id="@item.poNumber">
+                                @Html.DisplayFor(modelItem => item.poNumber) 
+                            </a>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.poReference)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.companyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.contactName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.contactEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.contactPhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.orderDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.deliveryDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.orderStatus)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

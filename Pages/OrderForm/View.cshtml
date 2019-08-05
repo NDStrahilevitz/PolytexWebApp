@@ -1,0 +1,72 @@
+@page "{id:long?}"
+@model ViewOrderFormModel
+
+
+<div>
+    <p>
+        PO Number: @Model.order.poNumber 
+    </p>
+    <p>
+        Company PO Reference: @Model.order.poReference 
+    </p>
+    <p>
+        Company: @Model.order.companyName 
+    </p>
+    <p>
+        Contact: @Model.order.contactName 
+    </p>
+    <p>
+        Contact Email: @Model.order.contactEmail 
+    </p>
+    <p>
+        Contact Phone: @Model.order.contactPhone 
+    </p>
+    <p>
+        Order Date: @Model.order.orderDate 
+    </p>
+    <p>
+        Delivery Date: @Model.order.deliveryDate 
+    </p>
+    <p>
+        Order Status: @Model.order.orderStatus 
+    </p>
+</div>
+<div>
+    <table>
+        <caption>Devices</caption>
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Voltage</th>
+                <th>Compressor</th>
+                <th>RFID/Camera</th>
+                <th>Card Reader</th>
+                <th>Cells</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.devices){
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.deviceModel) 
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.voltage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.compressor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.idDevice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cardReader)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cells)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
