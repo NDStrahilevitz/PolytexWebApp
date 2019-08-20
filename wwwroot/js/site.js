@@ -63,6 +63,31 @@ function createValidLists(){
     }
 }
 
+function selectDefaultValues(devModel, devVoltage, devComprs, devIdDevc, devCardRd, devCells){
+    function getDropList(id){
+        var str = "zdevice_" + id;
+        return document.getElementById(str);
+    }
+    console.log("selectDefaultValues()");
+
+    console.log(devModel);
+    console.log(devVoltage);
+    console.log(devComprs);
+    console.log(devIdDevc);
+    console.log(devCardRd);
+    console.log(devCells);
+
+    getDropList("deviceModel").value = devModel;
+
+    createValidLists();
+
+    getDropList("voltage").value = devVoltage;
+    getDropList("compressor").value = devComprs;
+    getDropList("idDevice").value = devIdDevc;
+    getDropList("cardReader").value = devCardRd;
+    getDropList("cells").value = devCells;
+}
+
 function warningDateMessage(){
     console.log("warningDateMessage");
     var deliveryDate = new Date(document.getElementById("zorder_deliveryDate").value);
@@ -71,7 +96,7 @@ function warningDateMessage(){
     var diff = (deliveryDate - orderDate)/(24*3600*1000);
     if(diff < 90){
         console.log("entered");
-        warningLabel.innerText = "\nStandard delivery date is 90 days.\n Special delivery dates confirmation is subject to Polytex inventory status";
+        warningLabel.innerText = "\nStandard delivery date is 90 days.\n Special delivery dates confirmation is subject to Polytex inventory status.";
     }
     else{
         warningLabel.innerText = "";
