@@ -22,10 +22,12 @@
         Contact Phone: @Model.order.contactPhone 
     </p>
     <p>
-        Order Date: @Model.order.orderDate 
+        @{ var ordDate = Model.order.orderDate.Date.ToString("yyyy-MM-dd"); }
+        Order Date: @ordDate
     </p>
     <p>
-        Delivery Date: @Model.order.deliveryDate 
+        @{ var delivDate = Model.order.deliveryDate.Date.ToString("yyyy-MM-dd"); }
+        Delivery Date: @delivDate
     </p>
     <p>
         Order Status: @Model.order.orderStatus 
