@@ -42,7 +42,7 @@ namespace PolytexWebApp.Pages.OrderForm
             await InitData();
             
             if(!ModelState.IsValid){
-                return Page();
+                return BadRequest(ModelState);
             }
 
             _order.poNumber = poNum;
