@@ -10,13 +10,13 @@ using PolytexWebApp.Models;
 
 namespace PolytexWebApp.Pages.OrderForm
 {
-    public class EditOrderForm : PageModel
+    public class EditOrderFormModel : PageModel
     {
         private readonly DeviceOrderRepository deviceRepository;
         private readonly PurchaseOrderRepository poRepository;
         private readonly IConfiguration config;
         
-        public EditOrderForm(IConfiguration _config){
+        public EditOrderFormModel(IConfiguration _config){
             config = _config;
             string connectionString = config.GetConnectionString("PolytexContext");
             deviceRepository = new DeviceOrderRepository(connectionString);
@@ -36,7 +36,7 @@ namespace PolytexWebApp.Pages.OrderForm
         public async Task<IActionResult> OnPostAsync(){
             
             if(!ModelState.IsValid){
-                return Page();
+                return BadRequest(ModelState);
             }
 
             await poRepository.Update(_order);

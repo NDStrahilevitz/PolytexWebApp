@@ -3,39 +3,37 @@
 @model EditOrderFormModel
 
 
-<form asp-page="Create" method="post">
+<form asp-page="Edit" method="post">
     <div>
         <p>
-            PO Number: <input type="number" id="poNumber" value="@Model.poNumSt" readonly/>
+            PO Number: <input type="number" id="poNumber" value="@Model.oOrder.poNumber" readonly/>
         </p>
         <p>
-            Company PO Reference: <input type="number" asp-for="_order.poReference"> 
+            Company PO Reference: <input type="number" asp-for="_order.poReference" value="@Model.oOrder.poReference"> 
             <span asp-validation-for="_order.poReference" class="text-danger"></span>
         </p>
         <p>
-            Company: <input type="text" asp-for="_order.companyName"> 
+            Company: <input type="text" asp-for="_order.companyName" value="@Model.oOrder.companyName"> 
             <span asp-validation-for="_order.companyName" class="text-danger"></span>
         </p>
         <p>
-            Contact: <input type="text" asp-for="_order.contactName"> 
+            Contact: <input type="text" asp-for="_order.contactName" value="@Model.oOrder.contactName"> 
             <span asp-validation-for="_order.contactName" class="text-danger"></span>
         </p>
         <p>
-            Contact Email: <input type="email" asp-for="_order.contactEmail"> 
+            Contact Email: <input type="email" asp-for="_order.contactEmail" value="@Model.oOrder.contactEmail"> 
             <span asp-validation-for="_order.contactEmail" class="text-danger"></span> 
         </p>
         <p>
-            Contact Phone: <input type="tel" asp-for="_order.contactPhone"> 
+            Contact Phone: <input type="tel" asp-for="_order.contactPhone" value="@Model.oOrder.contactPhone"> 
             <span asp-validation-for="_order.contactPhone" class="text-danger"></span> 
         </p>
         <p>
-            @{
-                var date = Model.orderDate.Date.ToString("yyyy-MM-dd");
-            }
-            Order Date: <input type="date" id="orderDate" value="@date" readonly/> 
+            @{ var ordDate = Model.oOrder.orderDate.Date.ToString("yyyy-MM-dd"); }
+            Order Date: <input type="date" id="orderDate" value="@ordDate" readonly/> 
         </p>
         <p>
-            Delivery Date: <input type="date" asp-for="_order.deliveryDate" oninput="warningDateMessage();"> 
+            Delivery Date: <input type="date" asp-for="_order.deliveryDate" value="@Model.oOrder.deliveryDate" oninput="warningDateMessage();"> 
             <span asp-validation-for="_order.deliveryDate" class="text-danger"></span>
             <span id="delivery-rate-warning" class="text-danger"></span>
 
@@ -58,10 +56,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.devices){
+                @foreach (var item in Model.oDevice){
                 <tr>
                     <td>
-                        <select asp-for="_device.deviceModel" onchange="createValidLists();">
+                        @{
+                            var devModel = item.deviceModel;
+                            var devVoltage = item.voltage;
+                            var devComprs = item.compressor;
+                            var devIdDvc = item.idDevice;
+                            var devCardRd = item.cardReader;
+                            var devCells = item.cells;
+                        }
+                        <select asp-for="_device.deviceModel"  
+                            onchange="createValidLists();">
                             <option value="D200">D200</option>
                             <option value="D300">D300</option>
                             <option value="R100X">R100X</option>
