@@ -51,13 +51,14 @@ namespace PolytexWebApp.Models
 
             bool validModel = modelList.Contains(deviceModel);
             bool isDispenser = dispenserList.Contains(deviceModel);
-            bool isRetriever = dispenserList.Contains(deviceModel);
+            bool isRetriever = retriverList.Contains(deviceModel);
             bool validVoltage = voltageList.Contains(voltage);
-            bool validCompressor = compressorList.Contains(compressor) && isDispenser;
+            bool validCompressor = isRetriever && compressor == null || compressorList.Contains(compressor) && isDispenser;
             bool validIdDev = rfidList.Contains(idDevice) && isDispenser || idDevList.Contains(idDevice) && isRetriever;
             bool validCardRd = cardRdList.Contains(cardReader);
             bool validCells = (cells == 0 && isRetriever) || cellsListD200.Contains(cells) && deviceModel == "D200" || 
                                                                                         cellsListD300.Contains(cells) && deviceModel == "D300";
+            bool allValid = validModel && validVoltage && validCompressor && validIdDev && validCardRd && validCells;
             if(!validModel)
                 yield return new ValidationResult("Invalid Model");
             if(!validVoltage)
@@ -72,7 +73,9 @@ namespace PolytexWebApp.Models
                 yield return new ValidationResult("Invalid Cell selection or invalid model for cells");
             }
 
-            yield return ValidationResult.Success;
+            if(allValid){
+                yield return ValidationResult.Success;
+            }
         }
     }
 }
