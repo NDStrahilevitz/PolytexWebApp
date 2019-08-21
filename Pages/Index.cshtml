@@ -1,0 +1,29 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h2>Welcome to Polytex Order Manager</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>Reports</h4>
+                <a asp-page="/Reports">
+                    <img src="~/images/reporticon.png" class="img-rounded" />
+                </a>
+                <br/>
+                <p>View and filter through all Purchase Orders</p>
+            </div>
+            <div class="col-sm-6">
+                <h4>Create Order</h4>
+                <a asp-page="/OrderForm/Create">
+                    <img src="~/images/poicon.png" class="img-rounded" />
+                </a>
+                <br/>
+                <p>Send a Purchase Order</p>
+            </div>
+        </div>
+    </div>
+</div>
