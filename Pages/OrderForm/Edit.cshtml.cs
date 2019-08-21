@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PolytexWebApp.DataLayer;
 using PolytexWebApp.Models;
 
+
 namespace PolytexWebApp.Pages.OrderForm
 {
     public class EditOrderFormModel : PageModel
@@ -16,6 +17,10 @@ namespace PolytexWebApp.Pages.OrderForm
         private readonly PurchaseOrderRepository poRepository;
         private readonly IConfiguration config;
         
+        //original models
+        public PurchaseOrder oOrder {get; private set;}
+        public IEnumerable<DeviceOrder> oDevice {get; private set;}
+
         public EditOrderFormModel(IConfiguration _config){
             config = _config;
             string connectionString = config.GetConnectionString("PolytexContext");
@@ -23,26 +28,23 @@ namespace PolytexWebApp.Pages.OrderForm
             poRepository = new PurchaseOrderRepository(connectionString);
         }
 
-        //original models
-        public PurchaseOrder oOrder;
-        public IEnumerable<DeviceOrder> oDevice;
-
         [BindProperty]
         public PurchaseOrder _order {get; set;}
         [BindProperty]
         public DeviceOrder _device {get; set;}
 
-
-        public async Task<IActionResult> OnPostAsync(){
+        public async Task<IActionResult> OnPostAsync(ulong id){
             
             if(!ModelState.IsValid){
-                return BadRequest(ModelState);
+                return Page();
             }
+
+            _order.poNumber = id;
 
             await poRepository.Update(_order);
             await deviceRepository.Update(_device);
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("Index");
         }
 
         public async Task<IActionResult> OnGetAsync(ulong id){
@@ -51,6 +53,7 @@ namespace PolytexWebApp.Pages.OrderForm
                 return NotFound();
             }
             oDevice = await deviceRepository.GetAllByPO(oOrder);
+
             return Page();
         }
     }

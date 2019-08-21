@@ -1,12 +1,13 @@
 @page "{id:long?}"
 @using PolytexWebApp.Models;
+@using Newtonsoft.Json;
 @model EditOrderFormModel
 
 
 <form asp-page="Edit" method="post">
     <div>
         <p>
-            PO Number: <input type="number" id="poNumber" value="@Model.oOrder.poNumber" readonly/>
+            PO Number: <input type="number" id="poNumber" value="id" readonly/>
         </p>
         <p>
             Company PO Reference: <input type="number" asp-for="_order.poReference" value="@Model.oOrder.poReference"> 
@@ -33,7 +34,8 @@
             Order Date: <input type="date" id="orderDate" value="@ordDate" readonly/> 
         </p>
         <p>
-            Delivery Date: <input type="date" asp-for="_order.deliveryDate" value="@Model.oOrder.deliveryDate" oninput="warningDateMessage();"> 
+            @{ var delivDate = Model.oOrder.deliveryDate.Date.ToString("yyyy-MM-dd"); }
+            Delivery Date: <input type="date" asp-for="_order.deliveryDate" value="@delivDate" oninput="warningDateMessage();"> 
             <span asp-validation-for="_order.deliveryDate" class="text-danger"></span>
             <span id="delivery-rate-warning" class="text-danger"></span>
 
@@ -57,16 +59,16 @@
             </thead>
             <tbody>
                 @foreach (var item in Model.oDevice){
+                    var jsonDevice =  JsonConvert.SerializeObject(item);
+
+                <script language="javascript" type="text/javascript" src="~/js/site.js">
+                    window.onload = selectDeviceDefaultValues(@jsonDevice);
+                </script>
                 <tr>
                     <td>
-                        @{
-                            var devModel = item.deviceModel;
-                            var devVoltage = item.voltage;
-                            var devComprs = item.compressor;
-                            var devIdDvc = item.idDevice;
-                            var devCardRd = item.cardReader;
-                            var devCells = item.cells;
-                        }
+                        <input type="hidden" asp-for="_device.deviceNumber" value="@item.deviceNumber">
+                    </td>
+                    <td>
                         <select asp-for="_device.deviceModel"  
                             onchange="createValidLists();">
                             <option value="D200">D200</option>
@@ -76,12 +78,14 @@
                             <option value="R310X">R310X</option>
                             <option value="R310">R310</option>
                         </select>
+                        <span asp-validation-for="@item.deviceModel" class="text-danger"></span>
                     </td>
                     <td>
                         <select asp-for="_device.voltage">
                             <option value="115V">115V (US)</option>
                             <option value="220V">220V (EUR)</option>
                         </select>
+                        <span asp-validation-for="@item.voltage" class="text-danger"></span>
                     </td>
                     <td>
                         <select asp-for="_device.compressor">
@@ -89,6 +93,7 @@
                             <option value="115V">115V (US)</option>
                             <option value="220V">220V (EUR)</option>
                         </select>
+                        <span asp-validation-for="@item.compressor" class="text-danger"></span>
                     </td>
                     <td>
                         <select asp-for="_device.idDevice">
@@ -96,6 +101,7 @@
                             <option value="LF">LF</option>
                             <option value="UHF">UHF</option>
                         </select>
+                        <span asp-validation-for="@item.idDevice" class="text-danger"></span>
                     </td>
                     <td>
                         <select asp-for="_device.cardReader">
@@ -104,6 +110,7 @@
                             <option value="Mifare">Mifare</option>
                             <option value="125khz">125khz</option>
                         </select>
+                        <span asp-validation-for="@item.cardReader" class="text-danger"></span>
                     </td>
                     <td>
                         <select asp-for="_device.cells">
@@ -114,6 +121,7 @@
                             <option value="20">20</option>
                             <option value="24">24</option>
                         </select>
+                        <span asp-validation-for="@item.cells" class="text-danger"></span>
                     </td>
                 </tr>
                 }
