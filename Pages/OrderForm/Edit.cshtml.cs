@@ -44,7 +44,7 @@ namespace PolytexWebApp.Pages.OrderForm
             await poRepository.Update(_order);
             await deviceRepository.Update(_device);
 
-            return RedirectToPage("Index");
+            return Redirect("~/OrderForm/View/" + id);
         }
 
         public async Task<IActionResult> OnGetAsync(ulong id){

@@ -1,13 +1,13 @@
 @page "{id:long?}"
 @using PolytexWebApp.Models;
-@using Newtonsoft.Json;
+@using DataLayer;
 @model EditOrderFormModel
 
 
 <form asp-page="Edit" method="post">
     <div>
         <p>
-            PO Number: <input type="number" id="poNumber" value="id" readonly/>
+            PO Number: <input type="number" id="poNumber" value="@Model.oOrder.poNumber" readonly/>
         </p>
         <p>
             Company PO Reference: <input type="number" asp-for="_order.poReference" value="@Model.oOrder.poReference"> 
@@ -49,6 +49,7 @@
             <thead>
                 <caption>Devices</caption>
                 <tr>
+                    <th>    </th>
                     <th>Model</th>
                     <th>Voltage</th>
                     <th>Compressor</th>
@@ -59,11 +60,6 @@
             </thead>
             <tbody>
                 @foreach (var item in Model.oDevice){
-                    var jsonDevice =  JsonConvert.SerializeObject(item);
-
-                <script language="javascript" type="text/javascript" src="~/js/site.js">
-                    window.onload = selectDeviceDefaultValues(@jsonDevice);
-                </script>
                 <tr>
                     <td>
                         <input type="hidden" asp-for="_device.deviceNumber" value="@item.deviceNumber">
@@ -124,6 +120,12 @@
                         <span asp-validation-for="@item.cells" class="text-danger"></span>
                     </td>
                 </tr>
+                <script>
+                    
+                    var obj = @JavaScriptConvert.SerializeObject(@item);
+                    selectDefaultValues(obj);
+                    
+                </script>
                 }
             </tbody>
         </table>

@@ -58,6 +58,9 @@
                 <tr>
                     <td>
                         <select asp-for="_device.deviceModel" onchange="createValidLists();">
+                            <option value="notselected" selected disabled hidden> 
+                                Select a Device
+                            </option> 
                             <option value="D200">D200</option>
                             <option value="D300">D300</option>
                             <option value="R100X">R100X</option>
@@ -74,6 +77,9 @@
                     </td>
                     <td>
                         <select asp-for="_device.compressor">
+                            <option value="notselected" selected disabled hidden> 
+                                Select a Device
+                            </option> 
                             <option value="None">None</option>
                             <option value="115V">115V (US)</option>
                             <option value="220V">220V (EUR)</option>
@@ -81,6 +87,9 @@
                     </td>
                     <td>
                         <select asp-for="_device.idDevice">
+                            <option value="notselected" selected disabled hidden> 
+                                Select a Device
+                            </option> 
                             <option value="HF">HF</option>
                             <option value="LF">LF</option>
                             <option value="UHF">UHF</option>
@@ -96,6 +105,9 @@
                     </td>
                     <td>
                         <select asp-for="_device.cells">
+                            <option value="notselected" selected disabled hidden> 
+                                Select a Device
+                            </option> 
                             <option value="10">10</option>
                             <option value="12">12</option>
                             <option value="15">15</option>

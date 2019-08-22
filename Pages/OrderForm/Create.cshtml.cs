@@ -53,7 +53,7 @@ namespace PolytexWebApp.Pages.OrderForm
             await poRepository.Create(_order);
             await deviceRepository.Create(_device);
 
-            return RedirectToPage("/View/" + poNumSt);
+            return Redirect("View/" + poNumSt);
         }
 
         public async Task<ulong> GetCounter(){
