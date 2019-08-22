@@ -1,4 +1,4 @@
-emptyappex.csproj
+*.csproj
 .vscode
 Properties/
 bin/
