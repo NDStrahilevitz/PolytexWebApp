@@ -32,7 +32,7 @@
             @foreach (var item in Model.orders){
                 <tr>
                     <td>
-                        @if(item.orderStatus != PurchaseOrder.Status.Draft)
+                        @if(item.orderStatus == PurchaseOrder.Status.Confirmed)
                         {
                             <a asp-page="/OrderForm/View" asp-route-id="@item.poNumber">
                                 @Html.DisplayFor(modelItem => item.poNumber) 
