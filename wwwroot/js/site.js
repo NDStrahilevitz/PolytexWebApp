@@ -63,29 +63,25 @@ function createValidLists(){
     }
 }
 
-function selectDefaultValues(devModel, devVoltage, devComprs, devIdDevc, devCardRd, devCells){
+function selectDefaultValues(device){
     function getDropList(id){
         var str = "zdevice_" + id;
         return document.getElementById(str);
     }
+
     console.log("selectDefaultValues()");
 
-    console.log(devModel);
-    console.log(devVoltage);
-    console.log(devComprs);
-    console.log(devIdDevc);
-    console.log(devCardRd);
-    console.log(devCells);
+    console.log(obj);
 
-    getDropList("deviceModel").value = devModel;
+    getDropList("deviceModel").value = obj.deviceModel;
 
     createValidLists();
 
-    getDropList("voltage").value = devVoltage;
-    getDropList("compressor").value = devComprs;
-    getDropList("idDevice").value = devIdDevc;
-    getDropList("cardReader").value = devCardRd;
-    getDropList("cells").value = devCells;
+    getDropList("voltage").value = obj.voltage;
+    getDropList("compressor").value = obj.compressor;
+    getDropList("idDevice").value = obj.idDevice;
+    getDropList("cardReader").value = obj.cardReader;
+    getDropList("cells").value = obj.cells;
 }
 
 function warningDateMessage(){
